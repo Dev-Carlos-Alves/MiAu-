@@ -46,15 +46,21 @@ document.getElementById('btn-logout').addEventListener('click', (e) => {
 document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', (e) => {
         e.preventDefault();
+        const targetElement = e.target.closest('.nav-link');
         document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-        e.target.classList.add('active');
+        targetElement.classList.add('active');
 
         document.querySelectorAll('.content-section').forEach(sec => sec.classList.add('hidden'));
-        const target = e.target.getAttribute('data-target');
+        const target = targetElement.getAttribute('data-target');
         const section = document.getElementById(`sec-${target}`);
         if(section) section.classList.remove('hidden');
-        document.getElementById('page-title').textContent = e.target.textContent;
+        document.getElementById('page-title').textContent = targetElement.querySelector('span').textContent;
     });
+});
+
+// Lógica para abrir/fechar a sidebar (Hamburger Menu) - [Carlos Eduardo]
+document.getElementById('sidebar-toggle').addEventListener('click', () => {
+    document.getElementById('sidebar').classList.toggle('collapsed');
 });
 
 function openModal(id) {

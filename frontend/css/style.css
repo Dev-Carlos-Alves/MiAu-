@@ -105,12 +105,18 @@ button.btn-primary:active {
 /* Sidebar */
 .sidebar {
     width: 250px;
-    background-color: white;
-    border-right: 1px solid #eee;
+    background: linear-gradient(180deg, var(--cor-paleta-1, #ffd1dc), var(--cor-paleta-2, #ffb6c1)); /* Gradiente na navegação */
+    border-right: none;
     display: flex;
     flex-direction: column;
     padding: 1.5rem 0;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    transition: width 0.3s ease;
+    overflow-x: hidden;
+}
+
+.sidebar.collapsed {
+    width: 80px;
 }
 
 .sidebar-logo {
@@ -119,9 +125,16 @@ button.btn-primary:active {
 }
 
 .sidebar-logo img {
-    width: 160px; /* Logo do menu lateral bastante aumentado */
-    max-width: 90%;
+    width: 100%; /* Ocupar o espaço */
+    max-width: 220px;
     margin-top: 1rem;
+    transition: width 0.3s ease, transform 0.3s ease;
+    transform: scale(1.6); /* Ampliação forçada do logo para ignorar bordas transparentes da imagem */
+}
+
+.sidebar.collapsed .sidebar-logo img {
+    width: 80px; /* Ocupa toda a largura da sidebar fechada */
+    transform: scale(2.0); /* Ampliação forçada para compensar o espaço transparente da imagem */
 }
 
 .sidebar nav ul {
@@ -134,31 +147,50 @@ button.btn-primary:active {
     margin-bottom: 0.5rem;
 }
 
-.sidebar nav ul li a {
-    display: block;
+.sidebar nav ul li a, .logout-btn {
+    display: flex;
+    align-items: center;
     padding: 1rem 1.5rem;
-    color: #555;
+    color: #111111; /* Texto bem escuro para contrastar com o gradiente */
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
     transition: all 0.3s;
     border-left: 4px solid transparent;
 }
 
+.sidebar nav ul li a i, .logout-btn i {
+    font-size: 1.2rem;
+    width: 30px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.sidebar.collapsed nav ul li a span,
+.sidebar.collapsed .logout-btn span {
+    display: none;
+}
+
+.sidebar.collapsed nav ul li a, .sidebar.collapsed .logout-btn {
+    padding: 1rem;
+    justify-content: center;
+}
+
+.sidebar.collapsed nav ul li a i, .sidebar.collapsed .logout-btn i {
+    margin-right: 0;
+}
+
 .sidebar nav ul li a:hover,
 .sidebar nav ul li a.active {
-    background-color: rgba(0,0,0,0.05);
-    color: #000000; /* Preto para leitura */
-    border-left-color: #000000; /* Marcador preto */
-    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.4); /* Fundo sutil para não sumir no gradiente */
+    color: #000000 !important; /* Força que as letras continuem escuras e visíveis */
+    border-left-color: #000000;
+    font-weight: 800;
 }
 
 .logout-btn {
     margin-top: auto;
-    padding: 1rem 1.5rem;
-    color: #dc3545;
-    text-decoration: none;
-    font-weight: 600;
-    display: block;
+    color: #a70000; /* Vermelho escuro para combinar e dar contraste */
+    font-weight: 700;
 }
 
 /* Main Content */
@@ -170,19 +202,35 @@ button.btn-primary:active {
 }
 
 .topbar {
-    background: white;
+    background: linear-gradient(135deg, var(--cor-paleta-1, #ffd1dc), var(--cor-paleta-2, #ffb6c1));
     height: 70px;
     display: flex;
     align-items: center;
     padding: 0 2rem;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.btn-toggle {
+    background: transparent;
+    border: none;
+    color: #111;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-right: 1.5rem;
+    transition: transform 0.2s;
+}
+
+.btn-toggle:hover {
+    transform: scale(1.1);
 }
 
 .topbar h1 {
     margin: 0;
     font-size: 1.5rem;
     color: #111111; /* Preto para leitura perfeita */
-    font-weight: 700;
+    font-weight: 800;
+    text-shadow: 1px 1px 2px rgba(255,255,255,0.5); /* Dá destaque sobre o gradiente */
 }
 
 .content-area {
@@ -297,3 +345,66 @@ td button {
     border-radius: 6px;
     cursor: pointer;
 }
+
+/* --- HOME E MURAL DE AVISOS --- */
+.home-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+@media (max-width: 900px) {
+    .home-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.home-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.welcome-card {
+    border-top: 5px solid var(--cor-dominante, #ff8c00);
+}
+
+.mural-card {
+    border-top: 5px solid var(--cor-paleta-1, #ffb6c1);
+}
+
+.home-card h2 {
+    margin-top: 0;
+    color: #111;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.home-features {
+    list-style: none;
+    padding: 0;
+}
+
+.home-features li {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #eee;
+    color: #444;
+}
+
+.home-features li i {
+    color: var(--cor-dominante, #ff8c00);
+    width: 25px;
+}
+
+.aviso {
+    background: #fff9e6;
+    padding: 1rem;
+    border-left: 4px solid #ffc107;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+    color: #333;
+}
+

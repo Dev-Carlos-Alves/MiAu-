@@ -64,4 +64,41 @@ def delete_pet(pet_id: int, db: pymysql.connections.Connection = Depends(get_db)
     cursor.execute("DELETE FROM Pets WHERE Id=%s", (pet_id,))
     return {"message": "Pet deletado"}
 
-# Funcionalidades de Produtos, Serviços e Agendamentos seguem a mesma lógica (ocultados para simplificação)
+# --- SERVIÇOS ---
+@router.get("/servicos", tags=["Serviços"])
+def read_servicos(db: pymysql.connections.Connection = Depends(get_db)):
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM Servicos")
+    return cursor.fetchall()
+
+@router.delete("/servicos/{id}", tags=["Serviços"])
+def delete_servico(id: int, db: pymysql.connections.Connection = Depends(get_db)):
+    cursor = db.cursor()
+    cursor.execute("DELETE FROM Servicos WHERE Id=%s", (id,))
+    return {"message": "Serviço deletado"}
+
+# --- PRODUTOS ---
+@router.get("/produtos", tags=["Produtos"])
+def read_produtos(db: pymysql.connections.Connection = Depends(get_db)):
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM Produtos")
+    return cursor.fetchall()
+
+@router.delete("/produtos/{id}", tags=["Produtos"])
+def delete_produto(id: int, db: pymysql.connections.Connection = Depends(get_db)):
+    cursor = db.cursor()
+    cursor.execute("DELETE FROM Produtos WHERE Id=%s", (id,))
+    return {"message": "Produto deletado"}
+
+# --- AGENDAMENTOS ---
+@router.get("/agendamentos", tags=["Agendamentos"])
+def read_agendamentos(db: pymysql.connections.Connection = Depends(get_db)):
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM Agendamentos")
+    return cursor.fetchall()
+
+@router.delete("/agendamentos/{id}", tags=["Agendamentos"])
+def delete_agendamento(id: int, db: pymysql.connections.Connection = Depends(get_db)):
+    cursor = db.cursor()
+    cursor.execute("DELETE FROM Agendamentos WHERE Id=%s", (id,))
+    return {"message": "Agendamento deletado"}

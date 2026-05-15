@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AuMiau Petshop</title>
+    <!-- Adicionado FontAwesome para os ícones - [Carlos Eduardo] -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/palette.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -32,35 +34,58 @@
     <!-- Aplicação Principal -->
     <div id="app-view" class="view hidden">
         <!-- Sidebar Navigation -->
-        <aside class="sidebar">
+        <aside class="sidebar" id="sidebar">
             <div class="sidebar-logo">
                 <!-- Usando o logo iconizado conforme requisito -->
                 <img src="imagens/logo_aumiau.png" alt="AuMiau Icone">
             </div>
             <nav>
                 <ul id="nav-menu">
-                    <li><a href="#" data-target="dashboard" class="nav-link active">Dashboard</a></li>
-                    <li><a href="#" data-target="tutores" class="nav-link">Tutores</a></li>
-                    <li><a href="#" data-target="pets" class="nav-link">Pets</a></li>
-                    <li><a href="#" data-target="servicos" class="nav-link">Serviços</a></li>
-                    <li><a href="#" data-target="produtos" class="nav-link">Produtos</a></li>
-                    <li><a href="#" data-target="agendamentos" class="nav-link">Agendamentos</a></li>
+                    <li><a href="#" data-target="home" class="nav-link active"><i class="fas fa-home"></i> <span>Home</span></a></li>
+                    <li><a href="#" data-target="tutores" class="nav-link"><i class="fas fa-user-friends"></i> <span>Tutores</span></a></li>
+                    <li><a href="#" data-target="pets" class="nav-link"><i class="fas fa-paw"></i> <span>Pets</span></a></li>
+                    <li><a href="#" data-target="servicos" class="nav-link"><i class="fas fa-concierge-bell"></i> <span>Serviços</span></a></li>
+                    <li><a href="#" data-target="produtos" class="nav-link"><i class="fas fa-box-open"></i> <span>Produtos</span></a></li>
+                    <li><a href="#" data-target="agendamentos" class="nav-link"><i class="fas fa-calendar-alt"></i> <span>Agendamentos</span></a></li>
                 </ul>
             </nav>
-            <a href="#" id="btn-logout" class="logout-btn">Sair</a>
+            <a href="#" id="btn-logout" class="logout-btn"><i class="fas fa-sign-out-alt"></i> <span>Sair</span></a>
         </aside>
 
         <!-- Main Content Area -->
         <main class="main-content">
             <header class="topbar">
-                <h1 id="page-title">Dashboard</h1>
+                <button id="sidebar-toggle" class="btn-toggle"><i class="fas fa-bars"></i></button>
+                <h1 id="page-title">Home</h1>
             </header>
             
             <div class="content-area">
-                <!-- Dashboard Section -->
-                <section id="sec-dashboard" class="content-section">
-                    <h2>Visão Geral</h2>
-                    <p>Bem-vindo ao sistema de gestão do AuMiau Petshop. Utilize o menu lateral para navegar entre os módulos.</p>
+                <!-- Home Section -->
+                <section id="sec-home" class="content-section">
+                    <div class="home-grid">
+                        <div class="home-card welcome-card">
+                            <h2><i class="fas fa-paw"></i> Bem-vindo ao AuMiau!</h2>
+                            <p>Este é o sistema completo de gestão fullstack para a sua clínica pet.</p>
+                            <ul class="home-features">
+                                <li><i class="fas fa-user-friends"></i> <strong>Tutores:</strong> Cadastre os donos dos animaizinhos.</li>
+                                <li><i class="fas fa-dog"></i> <strong>Pets:</strong> Registre os dados vitais de cada paciente.</li>
+                                <li><i class="fas fa-calendar-check"></i> <strong>Agendamentos:</strong> Marque consultas e banhos de forma rápida.</li>
+                                <li><i class="fas fa-box-open"></i> <strong>Produtos:</strong> Controle seu estoque e preços.</li>
+                            </ul>
+                        </div>
+                        <div class="home-card mural-card">
+                            <h2><i class="fas fa-thumbtack"></i> Mural de Avisos</h2>
+                            <div class="aviso">
+                                <strong>[Urgente]</strong> Repor estoque de ração para cães filhotes.
+                            </div>
+                            <div class="aviso">
+                                <strong>[Aviso]</strong> O Dr. Carlos estará de férias na próxima semana.
+                            </div>
+                            <div class="aviso">
+                                <strong>[Lembrete]</strong> Revisar agenda de banho e tosa para sábado.
+                            </div>
+                        </div>
+                    </div>
                 </section>
 
                 <!-- Tutores Section -->
