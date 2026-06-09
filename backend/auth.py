@@ -1,3 +1,4 @@
+import os
 from datetime import datetime, timedelta
 from typing import Optional
 from jose import JWTError, jwt
@@ -6,9 +7,9 @@ from fastapi.security import OAuth2PasswordBearer
 import pymysql
 from database import get_db
 
-SECRET_KEY = "aumiau_super_secret_key_change_in_production"
+SECRET_KEY = os.getenv('JWT_SECRET_KEY', 'aumiau_super_secret_key_change_in_production')
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 120
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv('JWT_EXPIRE_MINUTES', '120'))
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 

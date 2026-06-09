@@ -1,6 +1,6 @@
 // Arquivo de comunicação com a API REST usando Fetch - [Carlos Eduardo]
 
-const API_BASE_URL = 'http://127.0.0.1:8000';
+const API_BASE_URL = window.location.origin;
 
 // Função que encapsula o Fetch adicionando o Token JWT no Header - [Carlos Eduardo]
 async function apiFetch(endpoint, options = {}) {

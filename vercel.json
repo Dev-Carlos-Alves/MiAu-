@@ -1,0 +1,19 @@
+{
+  "installCommand": "pip install -r api/requirements.txt",
+  "functions": {
+    "api/index.py": {
+      "runtime": "python3.12"
+    }
+  },
+  "rewrites": [
+    { "source": "/auth/:path*", "destination": "/api/index" },
+    { "source": "/api/:path*", "destination": "/api/index" },
+    { "source": "/docs", "destination": "/api/index" },
+    { "source": "/redoc", "destination": "/api/index" },
+    { "source": "/openapi.json", "destination": "/api/index" },
+    { "source": "/css/:path*", "destination": "/frontend/css/:path*" },
+    { "source": "/js/:path*", "destination": "/frontend/js/:path*" },
+    { "source": "/imagens/:path*", "destination": "/frontend/imagens/:path*" },
+    { "source": "/((?!api|auth|docs|redoc|openapi\\.json|css|js|imagens).*)", "destination": "/frontend/index.html" }
+  ]
+}

@@ -47,7 +47,7 @@ O MiAu não é apenas para Desktops; a interface CSS possui Media Queries otimiz
 ### 2. Configurar o Banco de Dados
 A criação das tabelas e do usuário administrador padrão foi automatizada. Basta rodar o script oficial:
 ```bash
-python backend/database/setup_db.py
+python database/setup_db.py
 ```
 > **Credenciais Padrão:** Login: `ShardCadu` | Senha: `cadu123`
 

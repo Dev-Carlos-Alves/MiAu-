@@ -1,5 +1,6 @@
 import sys
 import subprocess
+import os
 
 try:
     from colorthief import ColorThief
@@ -12,19 +13,16 @@ def rgb_to_hex(rgb):
     return '#{:02x}{:02x}{:02x}'.format(rgb[0], rgb[1], rgb[2])
 
 def main():
-    image_path = "/home/Cadu/Área de trabalho/Faculdade/Henning 2026.1/AuMiau/frontend/imagens/identidade_visual.png"
-    output_path = "/home/Cadu/Área de trabalho/Faculdade/Henning 2026.1/AuMiau/frontend/css/palette.css"
+    project_root = os.path.dirname(os.path.abspath(__file__))
+    image_path = os.path.join(project_root, "frontend", "imagens", "logo_completo_miau.png")
+    output_path = os.path.join(project_root, "frontend", "css", "palette.css")
     
     print("Extraindo cores com ColorThief...")
     color_thief = ColorThief(image_path)
     
-    # Extrair cor dominante
     dominant_color = color_thief.get_color(quality=1)
-    
-    # Extrair paleta de 5 cores
     palette = color_thief.get_palette(color_count=6, quality=1)
     
-    import os
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     
     with open(output_path, "w") as f:

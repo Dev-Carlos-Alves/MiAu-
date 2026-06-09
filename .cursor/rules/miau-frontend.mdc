@@ -1,0 +1,18 @@
+---
+description: Design system MiAu para frontend
+globs: frontend/**
+alwaysApply: false
+---
+
+# MiAu — Frontend / Design System
+
+Siga [`cursor-rules/design-system.md`](cursor-rules/design-system.md) para toda UI nova.
+
+**Regras essenciais:**
+- Reutilize classes existentes (`.btn-primary`, `.input-group`, `.data-table-container`, `.modal`)
+- Cores via tokens `var(--cor-dominante)` e semânticas Arco (`#1d2129`, `#e5e6eb`, `#f53f3f`)
+- Border radius 4px, transição `0.2s cubic-bezier(0, 0, 1, 1)`
+- Font Awesome 6.4 para ícones; Inter via Google Fonts
+- Nova feature: `sec-{nome}` + nav `data-target` + `modal-{nome}` + handlers em `app.js`/`api.js`
+- Responsivo: testar em 768px (sidebar overlay, action-bar stack)
+- Não instalar React, Tailwind, Bootstrap ou pacote Arco npm

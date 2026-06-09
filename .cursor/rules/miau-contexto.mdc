@@ -1,0 +1,18 @@
+---
+description: Contexto do projeto MiAu para agentes de IA
+alwaysApply: true
+---
+
+# MiAu — Contexto Rápido
+
+Leia [`cursor-rules/projeto-contexto.md`](cursor-rules/projeto-contexto.md) antes de implementar.
+
+**Stack:** FastAPI + PyMySQL + SPA vanilla (HTML/CSS/JS). Dev local: `python app.py` → :8000.
+
+**Convenções frontend:** IDs `sec-*`, `modal-*`, `form-*`, `tbody-*`; API global `API.*` em `frontend/js/api.js`.
+
+**Design:** Arco-inspired CSS custom — ver [`cursor-rules/design-system.md`](cursor-rules/design-system.md).
+
+**Deploy:** Vercel serverless — ver [`cursor-rules/deploy-vercel.md`](cursor-rules/deploy-vercel.md).
+
+**Backlog conhecido:** CRUD create não wired, sem API avisos, senhas texto puro, sem módulo produtos.
