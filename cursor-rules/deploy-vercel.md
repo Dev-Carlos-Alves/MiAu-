@@ -68,8 +68,9 @@ Aplique as variáveis para **Production**, **Preview** e **Development**.
 O projeto inclui `vercel.json` na raiz. Ao fazer push para `main` no GitHub, a Vercel detecta e faz deploy.
 
 Estrutura de deploy:
+- `npm run build` — copia `frontend/` → `public/` (Vercel só serve estáticos de `public/`)
 - `api/index.py` — FastAPI serverless (rotas `/auth/*`, `/api/*`, `/docs`)
-- `frontend/` — arquivos estáticos servidos via rewrites
+- `public/` — gerado no build (não commitado; ver `.gitignore`)
 - `api/requirements.txt` — dependências Python
 
 ## Passo 5 — Verificar Deploy
