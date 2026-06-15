@@ -233,10 +233,6 @@ async function ensureLookupCaches() {
     await Promise.all(tasks);
 }
 
-async function ensureTutoresCache() {
-    if (!tutoresCache.length) tutoresCache = await API.getTutores();
-}
-
 function clearForm(formId, selectIds = []) {
     const form = document.getElementById(formId);
     if (!form) return;

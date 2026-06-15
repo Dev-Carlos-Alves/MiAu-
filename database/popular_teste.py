@@ -1,5 +1,4 @@
 # Script para popular o banco de dados com dados de teste - [Carlos Eduardo]
-import sys
 import os
 import pymysql
 

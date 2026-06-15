@@ -1,5 +1,6 @@
+# Modelos de validação Pydantic para a API REST - [Carlos Eduardo]
 from pydantic import BaseModel, EmailStr, Field
-from typing import Optional, List
+from typing import Optional
 from datetime import datetime
 
 class UserCreate(BaseModel):
