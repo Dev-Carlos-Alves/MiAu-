@@ -1,3 +1,4 @@
+# Rotas de API CRUD para Tutores, Pets, Serviços, Agendamentos e Avisos - [Carlos Eduardo]
 from fastapi import APIRouter, Depends, HTTPException
 import pymysql
 from database import get_db

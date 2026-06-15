@@ -1,3 +1,4 @@
+# Configuração e inicialização das tabelas do banco de dados - [Carlos Eduardo]
 import sys
 import subprocess
 import os
@@ -9,14 +10,15 @@ except ImportError:
     subprocess.check_call([sys.executable, "-m", "pip", "install", "pymysql", "cryptography"])
     import pymysql
 
-# Configurações do Banco de Dados
+# Configurações do Banco de Dados dinâmicas a partir de variáveis de ambiente
 DB_CONFIG = {
-    'host': 'localhost',
-    'user': 'root',
-    'password': 'root',
+    'host': os.getenv('DB_HOST', 'localhost'),
+    'user': os.getenv('DB_USER', 'root'),
+    'password': os.getenv('DB_PASSWORD', 'root'),
+    'port': int(os.getenv('DB_PORT', '3306')),
     'autocommit': True
 }
-DATABASE_NAME = 'miau_db'
+DATABASE_NAME = os.getenv('DB_NAME', 'miau_db')
 
 def reset_and_setup_database():
     try:
@@ -51,13 +53,12 @@ def reset_and_setup_database():
             if cmd:
                 # print(f"Executando: {cmd.split(chr(10))[0]}...")
                 cursor.execute(cmd)
-
-        print("✅ Banco de dados zerado e tabelas recriadas com sucesso (incluindo usuário admin via schema)!")
+        print("[OK] Banco de dados zerado e tabelas recriadas com sucesso (incluindo usuário admin via schema)!")
 
     except pymysql.MySQLError as e:
-        print(f"❌ Erro de Banco de Dados: {e}")
+        print(f"[ERRO] Erro de Banco de Dados: {e}")
     except Exception as e:
-        print(f"❌ Erro Inesperado: {e}")
+        print(f"[ERRO] Erro Inesperado: {e}")
     finally:
         if 'connection' in locals() and connection.open:
             connection.close()

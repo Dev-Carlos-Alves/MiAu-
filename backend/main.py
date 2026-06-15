@@ -1,3 +1,4 @@
+# Servidor FastAPI unificado: serve API REST e os arquivos estáticos do frontend - [Carlos Eduardo]
 import sys
 import os
 

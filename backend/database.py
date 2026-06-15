@@ -1,3 +1,4 @@
+# Configuração e conexão com o banco de dados MariaDB/MySQL - [Carlos Eduardo]
 import os
 import pymysql
 

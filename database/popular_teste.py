@@ -1,13 +1,15 @@
+# Script para popular o banco de dados com dados de teste - [Carlos Eduardo]
 import sys
 import os
 import pymysql
 
-# Configurações do Banco de Dados
+# Configurações do Banco de Dados dinâmicas a partir de variáveis de ambiente
 DB_CONFIG = {
-    'host': 'localhost',
-    'user': 'root',
-    'password': 'root',
-    'database': 'miau_db',
+    'host': os.getenv('DB_HOST', 'localhost'),
+    'user': os.getenv('DB_USER', 'root'),
+    'password': os.getenv('DB_PASSWORD', 'root'),
+    'database': os.getenv('DB_NAME', 'miau_db'),
+    'port': int(os.getenv('DB_PORT', '3306')),
     'autocommit': True
 }
 
@@ -77,11 +79,10 @@ def popular_banco_teste():
             "INSERT INTO avisos (tipo, mensagem) VALUES (%s, %s)",
             avisos_data
         )
-
-        print("✅ Dados de teste inseridos com sucesso!")
+        print("[OK] Dados de teste inseridos com sucesso!")
 
     except pymysql.MySQLError as e:
-        print(f"❌ Erro ao popular banco: {e}")
+        print(f"[ERRO] Erro ao popular banco: {e}")
     finally:
         if 'connection' in locals() and connection.open:
             connection.close()

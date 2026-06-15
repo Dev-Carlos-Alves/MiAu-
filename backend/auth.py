@@ -1,3 +1,4 @@
+# Lógica de autenticação JWT e criptografia de senhas - [Carlos Eduardo]
 import os
 from datetime import datetime, timedelta
 from typing import Optional
@@ -6,6 +7,7 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 import pymysql
 from database import get_db
+from passlib.context import CryptContext
 
 SECRET_KEY = os.getenv('JWT_SECRET_KEY', 'aumiau_super_secret_key_change_in_production')
 ALGORITHM = "HS256"
@@ -13,11 +15,19 @@ ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv('JWT_EXPIRE_MINUTES', '120'))
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 
-def verify_password(plain_password, db_password):
-    return plain_password == db_password
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+def verify_password(plain_password, hashed_password):
+    # Suporte a senhas em texto puro para compatibilidade com dados de teste
+    if hashed_password.startswith("$2b$") or hashed_password.startswith("$2a$"):
+        try:
+            return pwd_context.verify(plain_password, hashed_password)
+        except Exception:
+            return False
+    return plain_password == hashed_password
 
 def get_password_hash(password):
-    return password # Em texto puro
+    return pwd_context.hash(password)
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()
@@ -49,3 +59,4 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: pymysql.connection
     if user is None:
         raise credentials_exception
     return user
+
