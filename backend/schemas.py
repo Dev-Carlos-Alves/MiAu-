@@ -1,4 +1,5 @@
 # Modelos de validação Pydantic para a API REST - [Carlos Eduardo]
+# pyrefly: ignore [missing-import]
 from pydantic import BaseModel, EmailStr, Field
 from typing import Optional
 from datetime import datetime
