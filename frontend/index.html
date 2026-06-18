@@ -394,6 +394,21 @@
         </div>
     </div>
 
+    <!-- Modal Confirmar Exclusão -->
+    <div id="modal-confirm-delete" class="modal hidden">
+        <div class="modal-content modal-confirm">
+            <div class="modal-header">
+                <h3 id="confirm-delete-title">Confirmar exclusão</h3>
+                <button type="button" class="btn-close" onclick="closeConfirmDelete()" aria-label="Fechar"><i class="fas fa-times"></i></button>
+            </div>
+            <p id="confirm-delete-message" class="confirm-delete-message"></p>
+            <div class="modal-actions">
+                <button type="button" class="btn-cancel" onclick="closeConfirmDelete()">Cancelar</button>
+                <button type="button" class="btn-delete" id="confirm-delete-btn" onclick="executeConfirmDelete()">Sim, excluir</button>
+            </div>
+        </div>
+    </div>
+
     <script src="js/api.js?v=11"></script>
     <script src="js/app.js?v=11"></script>
 </body>
