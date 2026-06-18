@@ -32,6 +32,7 @@ O **MiAu** é um Sistema de Gestão Fullstack moderno, desenvolvido para clínic
 - 🔔 **Sistema de Notificações**: Mural de avisos com badge numérico.
 - 🏠 **Home / Mural**: Painel de avisos do sistema.
 - 👥 **Tutores & Pets**: CRUD unificado com foto do tutor e accordion de pets.
+- 🛍️ **Produtos**: Catálogo e controle de estoque de produtos (ração, brinquedos, medicamentos) com CRUD completo.
 - 🏷️ **Serviços**: Catálogo comercial de banho, tosa, etc.
 - 📅 **Agendamentos**: Cruzamento de tutores, pets e serviços.
 - 📖 **API Docs**: Swagger UI integrado em `/docs` (sidebar "API Docs").
