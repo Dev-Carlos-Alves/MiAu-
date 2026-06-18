@@ -195,13 +195,17 @@ button.btn-primary:active {
     margin-top: 0;
     object-fit: contain;
     filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.12));
-    transition: width 0.3s ease, filter 0.3s ease;
+    transition: width 0.3s ease, filter 0.3s ease, transform 0.3s ease;
+    transform: scale(1.5);
+    transform-origin: center;
 }
 
 .sidebar.collapsed .sidebar-logo img {
     width: 56px;
     max-width: 100%;
     max-height: none;
+    transform: scale(1.5);
+    transform-origin: center;
 }
 
 .sidebar nav ul {
@@ -841,6 +845,33 @@ td button {
 }
 .btn-cancel:hover {
     background-color: #e5e6eb;
+}
+
+.modal-confirm {
+    max-width: 480px;
+}
+
+.confirm-delete-message {
+    margin: 0;
+    padding: 1rem 1.25rem;
+    background: #fff7e8;
+    border: 1px solid #ffcf8b;
+    border-radius: 4px;
+    color: #4e5969;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.confirm-delete-message::before {
+    content: '\f071';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: #ff7d00;
+    margin-right: 0.5rem;
+}
+
+.modal-confirm .modal-actions .btn-delete {
+    min-width: 120px;
 }
 
 /* --- HOME E MURAL DE AVISOS --- */

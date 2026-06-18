@@ -394,19 +394,17 @@
         </div>
     </div>
 
-    <!-- Modal Confirm -->
-    <div id="modal-confirm" class="modal hidden">
-        <div class="modal-content" style="max-width: 400px; text-align: center;">
+    <!-- Modal Confirmar Exclusão -->
+    <div id="modal-confirm-delete" class="modal hidden">
+        <div class="modal-content modal-confirm">
             <div class="modal-header">
-                <h3 id="modal-confirm-title">Confirmação</h3>
-                <button type="button" class="btn-close" onclick="closeModal('modal-confirm')"><i class="fas fa-times"></i></button>
+                <h3 id="confirm-delete-title">Confirmar exclusão</h3>
+                <button type="button" class="btn-close" onclick="closeConfirmDelete()" aria-label="Fechar"><i class="fas fa-times"></i></button>
             </div>
-            <div class="modal-body" style="padding: 20px;">
-                <p id="modal-confirm-message" style="margin-bottom: 20px; font-size: 1.1rem;">Deseja realmente excluir este item?</p>
-            </div>
-            <div class="modal-actions" style="justify-content: center;">
-                <button type="button" class="btn-cancel" onclick="closeModal('modal-confirm')">Cancelar</button>
-                <button type="button" class="btn-delete" id="btn-confirm-action">Excluir</button>
+            <p id="confirm-delete-message" class="confirm-delete-message"></p>
+            <div class="modal-actions">
+                <button type="button" class="btn-cancel" onclick="closeConfirmDelete()">Cancelar</button>
+                <button type="button" class="btn-delete" id="confirm-delete-btn" onclick="executeConfirmDelete()">Sim, excluir</button>
             </div>
         </div>
     </div>
