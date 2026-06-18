@@ -7,9 +7,8 @@
 | Ambiente | Swagger UI | OpenAPI JSON |
 |----------|------------|--------------|
 | Local | http://127.0.0.1:8000/docs | http://127.0.0.1:8000/openapi.json |
-| Produção (Vercel) | https://mi-au.vercel.app/docs | https://mi-au.vercel.app/openapi.json |
 
-O arquivo [`docs/openapi.json`](openapi.json) inclui `servers` (local + Vercel), esquemas de auth OAuth2 e Bearer JWT, e está pronto para importar no Swagger Editor/Studio ou Postman.
+O arquivo [`docs/openapi.json`](openapi.json) inclui esquemas de auth OAuth2 e Bearer JWT, e está pronto para importar no Swagger Editor/Studio ou Postman.
 
 **Swagger Hub:** use [`docs/openapi.yaml`](openapi.yaml) e siga [`docs/SWAGGER-HUB-IMPORT.md`](SWAGGER-HUB-IMPORT.md) — e necessario **colar o arquivo inteiro** no editor (a API hospedada no Hub nao atualiza sozinha).
 
@@ -391,13 +390,11 @@ curl -s http://127.0.0.1:8000/openapi.json -o docs/openapi.json
 1. Abra [editor.swagger.io](https://editor.swagger.io)
 2. **File → Import file** → selecione [`docs/openapi.json`](openapi.json)
 3. Use **Authorize** → informe usuário/senha (`ShardCadu` / `cadu123`) ou escolha **BearerJWT** e cole só o token
-4. Selecione o **servidor** no topo (Local ou Produção Vercel) antes de **Try it out**
 
 ### Postman
 
 1. **Import → File or Link**
    - Arquivo: [`docs/openapi.json`](openapi.json)
-   - URL produção: `https://mi-au.vercel.app/openapi.json`
 2. Importe também (opcional, facilita JWT):
    - Environment: [`docs/postman/MiAu.postman_environment.json`](postman/MiAu.postman_environment.json)
    - Collection login: [`docs/postman/MiAu-Login.postman_collection.json`](postman/MiAu-Login.postman_collection.json)

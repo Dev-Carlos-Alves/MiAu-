@@ -148,6 +148,21 @@ document.getElementById('btn-logout').addEventListener('click', (e) => {
     checkAuth();
 });
 
+document.getElementById('form-esqueceu-senha').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('esqueceu-senha-email').value;
+    alert('Instruções para redefinição de senha foram enviadas para o email: ' + email);
+    closeModal('modal-esqueceu-senha');
+});
+
+document.getElementById('form-novo-usuario').addEventListener('submit', (e) => {
+    e.preventDefault();
+    // Simular criacao de usuario e login imediato
+    localStorage.setItem('aumiau_token', 'mock_token_novo_usuario');
+    closeModal('modal-novo-usuario');
+    checkAuth();
+});
+
 document.querySelectorAll('.nav-link').forEach(navLink => {
     navLink.addEventListener('click', (e) => {
         e.preventDefault();

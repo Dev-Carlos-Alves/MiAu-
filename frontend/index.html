@@ -27,6 +27,10 @@
                         <input type="password" id="password" required>
                     </div>
                     <button type="submit" class="btn-primary">Entrar</button>
+                    <div style="margin-top: 15px; text-align: center; font-size: 0.9em; display: flex; flex-direction: column; gap: 8px;">
+                        <a href="#" onclick="openModal('modal-esqueceu-senha'); return false;" style="color: var(--primary-color); text-decoration: none;">Esqueceu a senha? Clique aqui</a>
+                        <a href="#" onclick="openModal('modal-novo-usuario'); return false;" style="color: var(--primary-color); text-decoration: none;">Novo usuário</a>
+                    </div>
                     <p id="login-error" style="color: red; display: none; margin-top: 10px;"></p>
                 </form>
             </div>
@@ -406,6 +410,54 @@
                 <button type="button" class="btn-cancel" onclick="closeConfirmDelete()">Cancelar</button>
                 <button type="button" class="btn-delete" id="confirm-delete-btn" onclick="executeConfirmDelete()">Sim, excluir</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Modal Esqueceu a Senha -->
+    <div id="modal-esqueceu-senha" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Recuperar Senha</h3>
+                <button type="button" class="btn-close" onclick="closeModal('modal-esqueceu-senha')"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="form-esqueceu-senha">
+                <div class="input-group">
+                    <label>E-mail Cadastrado</label>
+                    <input type="email" id="esqueceu-senha-email" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="closeModal('modal-esqueceu-senha')">Cancelar</button>
+                    <button type="submit" class="btn-primary">Enviar Instruções</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Novo Usuário -->
+    <div id="modal-novo-usuario" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Criar Novo Usuário</h3>
+                <button type="button" class="btn-close" onclick="closeModal('modal-novo-usuario')"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="form-novo-usuario">
+                <div class="input-group">
+                    <label>Nome Completo</label>
+                    <input type="text" id="novo-usuario-nome" required>
+                </div>
+                <div class="input-group">
+                    <label>E-mail</label>
+                    <input type="email" id="novo-usuario-email" required>
+                </div>
+                <div class="input-group">
+                    <label>Senha</label>
+                    <input type="password" id="novo-usuario-senha" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="closeModal('modal-novo-usuario')">Cancelar</button>
+                    <button type="submit" class="btn-primary">Criar Conta e Entrar</button>
+                </div>
+            </form>
         </div>
     </div>
 

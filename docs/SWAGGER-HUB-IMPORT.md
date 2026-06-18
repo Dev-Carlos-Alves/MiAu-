@@ -35,8 +35,6 @@ No editor YAML, busque **`servers`** (Ctrl+F):
 servers:
   - url: http://127.0.0.1:8000
     description: Local (python app.py)
-  - url: https://mi-au.vercel.app
-    description: Producao Vercel
 ```
 
 No preview a direita:
@@ -47,7 +45,7 @@ No preview a direita:
 
 ## 5. Autorizar e testar
 
-1. Escolha servidor **Producao Vercel** (nao precisa rodar local) ou **Local** (`python app.py`)
+1. Escolha servidor **Local** (`python app.py`)
 2. **Authorize** → **OAuth2PasswordBearer**
    - username: `ShardCadu`
    - password: `cadu123`

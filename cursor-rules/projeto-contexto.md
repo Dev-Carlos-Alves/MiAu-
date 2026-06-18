@@ -11,7 +11,6 @@
 
 **Links:**
 - Repositório: https://github.com/Dev-Carlos-Alves/MiAu-
-- Deploy: https://mi-au.vercel.app
 
 ## Arquitetura
 
@@ -19,7 +18,7 @@
 Browser (SPA vanilla)
     │ JWT Bearer
     ▼
-FastAPI (porta 8000 local / serverless na Vercel)
+FastAPI (porta 8000 local)
     │ PyMySQL
     ▼
 MariaDB / MySQL (miau_db)
@@ -27,15 +26,12 @@ MariaDB / MySQL (miau_db)
 
 **Modo local:** servidor unificado — FastAPI serve API + arquivos estáticos do frontend na mesma porta.
 
-**Modo Vercel:** frontend estático na CDN + API Python serverless (`api/index.py`) + banco MySQL hospedado.
-
 ## Mapa de Pastas
 
 | Caminho | Status | Descrição |
 |---------|--------|-----------|
 | `app.py` | **Ativo** | Entry point local — inicia Uvicorn na porta 8000 |
 | `backend/main.py` | **Ativo** | FastAPI app completo (API + StaticFiles) para dev local |
-| `backend/app_api.py` | **Ativo** | FastAPI app só API (sem static) para Vercel |
 | `backend/routers/` | **Ativo** | Rotas auth e CRUD |
 | `backend/auth.py` | **Ativo** | JWT, OAuth2, get_current_user |
 | `backend/database.py` | **Ativo** | Conexão PyMySQL via env vars |
@@ -43,11 +39,9 @@ MariaDB / MySQL (miau_db)
 | `database/` | **Ativo** | schema.sql, setup_db.py, popular_teste.py |
 | `frontend/` | **Ativo** | SPA (index.html, css/, js/, imagens/) |
 | `public/` | **Ativo** | Build estático (copiado de `frontend/` no deploy) |
-| `api/index.py` | **Ativo** | Entry point serverless Vercel |
 | `cursor-rules/` | **Ativo** | Documentação para agentes |
 | `backend/app.js`, `backend/bin/` | **Removido** | Express legado eliminado |
 | `frontend/app.js`, `frontend/views/` | **Removido** | Express/EJS legado eliminado |
-| `deploy/` | **Ativo** | Config Vercel (`vercel.json`, `package.json`, `pyproject.toml`, `.env.example`) |
 
 ## Módulos / Features
 
@@ -144,10 +138,6 @@ Ver `deploy/.env.example`. Defaults em `backend/database.py` permitem rodar loca
 3. **Modulo produtos/estoque** — mencionado no README, nao implementado
 4. **POST /auth/register** — backend existe, UI de login nao expoe
 5. **Modal Ajustes** — placeholder sem configuracoes reais
-
-## Deploy
-
-Ver [`deploy-vercel.md`](deploy-vercel.md) para instruções completas de deploy na Vercel.
 
 ## Documentação Relacionada
 
