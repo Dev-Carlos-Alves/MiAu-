@@ -50,6 +50,18 @@ class ServicoCreate(ServicoBase):
 class Servico(ServicoBase):
     id: int = Field(..., example=1, description="ID gerado pelo banco (PK)")
 
+class ProdutoBase(BaseModel):
+    nome: str = Field(..., max_length=100, example="Ração Premium 15kg", description="Nome do produto")
+    descricao: Optional[str] = Field(None, example="Ração super premium para cães adultos", description="Descrição detalhada")
+    preco: float = Field(..., ge=0, example=189.90, description="Preço em reais (DECIMAL no banco)")
+    estoque: int = Field(..., ge=0, example=25, description="Quantidade em estoque")
+
+class ProdutoCreate(ProdutoBase):
+    pass
+
+class Produto(ProdutoBase):
+    id: int = Field(..., example=1, description="ID gerado pelo banco (PK)")
+
 class AgendamentoBase(BaseModel):
     tutor_id: int = Field(..., example=1, description="FK tutores.id")
     pet_id: int = Field(..., example=1, description="FK pets.id")

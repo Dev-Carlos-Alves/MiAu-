@@ -4,6 +4,7 @@ let avisosCache = [];
 let tutoresCache = [];
 let petsCache = [];
 let servicosCache = [];
+let produtosCache = [];
 let agendamentosCache = [];
 let agendaView = { year: new Date().getFullYear(), month: new Date().getMonth() };
 let currentTutorPetsId = null;
@@ -16,6 +17,7 @@ const MODAL_FORM_MAP = {
     'modal-tutor': { formId: 'form-tutor', selects: [] },
     'modal-pet': { formId: 'form-pet', selects: ['pet-tutor-id'] },
     'modal-servico': { formId: 'form-servico', selects: [] },
+    'modal-produto': { formId: 'form-produto', selects: [] },
     'modal-agendamento': { formId: 'form-agendamento', selects: ['agen-tutor-id', 'agen-pet-id', 'agen-servico-id'] }
 };
 
@@ -25,6 +27,7 @@ const MODAL_TITLES = {
     'modal-tutor': ['Cadastrar Tutor', 'Editar Tutor'],
     'modal-pet': ['Cadastrar Pet', 'Editar Pet'],
     'modal-servico': ['Cadastrar Serviço', 'Editar Serviço'],
+    'modal-produto': ['Cadastrar Produto', 'Editar Produto'],
     'modal-agendamento': ['Cadastrar Agendamento', 'Editar Agendamento']
 };
 
@@ -88,7 +91,8 @@ async function loadInitialData() {
     try {
         await Promise.all([
             loadData('tutores-pets'),
-            loadData('servicos')
+            loadData('servicos'),
+            loadData('produtos')
         ]);
         await loadData('agendamentos');
         loadAvisos();
@@ -361,6 +365,19 @@ function openEditServico(id) {
     document.getElementById('servico-preco').value = s.preco ?? '';
     setModalTitle('modal-servico', 'edit');
     openModal('modal-servico');
+}
+
+function openEditProduto(id) {
+    const p = produtosCache.find(x => x.id === id);
+    if (!p) return;
+    clearForm('form-produto');
+    document.getElementById('produto-id').value = p.id;
+    document.getElementById('produto-nome').value = p.nome || '';
+    document.getElementById('produto-descricao').value = p.descricao || '';
+    document.getElementById('produto-preco').value = p.preco ?? '';
+    document.getElementById('produto-estoque').value = p.estoque ?? 0;
+    setModalTitle('modal-produto', 'edit');
+    openModal('modal-produto');
 }
 
 async function openEditAgendamento(id) {
@@ -654,6 +671,7 @@ window.openAgendamentoModal = openAgendamentoModal;
 window.openEditTutor = openEditTutor;
 window.openEditPet = openEditPet;
 window.openEditServico = openEditServico;
+window.openEditProduto = openEditProduto;
 window.openEditAgendamento = openEditAgendamento;
 window.toggleTutorExpand = toggleTutorExpand;
 window.openCreatePetForTutor = openCreatePetForTutor;
@@ -680,6 +698,16 @@ async function loadData(module) {
             tbody.innerHTML = '';
             data.forEach(s => {
                 tbody.innerHTML += `<tr><td>${s.id}</td><td>${s.nome}</td><td>R$ ${s.preco}</td>${renderActionsCell(`openEditServico(${s.id})`, `API.deleteServico(${s.id}).then(()=>loadData('servicos'))`)}</tr>`;
+            });
+        } catch (e) { console.error(e); }
+    } else if (module === 'produtos') {
+        try {
+            const data = await API.getProdutos();
+            produtosCache = data;
+            const tbody = document.getElementById('tbody-produtos');
+            tbody.innerHTML = '';
+            data.forEach(p => {
+                tbody.innerHTML += `<tr><td>${p.id}</td><td>${escapeHtml(p.nome)}</td><td>${escapeHtml(p.descricao || '—')}</td><td>R$ ${p.preco}</td><td>${p.estoque}</td>${renderActionsCell(`openEditProduto(${p.id})`, `API.deleteProduto(${p.id}).then(()=>loadData('produtos'))`)}</tr>`;
             });
         } catch (e) { console.error(e); }
     } else if (module === 'agendamentos') {
@@ -749,6 +777,23 @@ document.getElementById('form-servico').addEventListener('submit', async (e) => 
         else await API.createServico(payload);
         closeModal('modal-servico');
         loadData('servicos');
+    } catch (err) { alert(err.message); }
+});
+
+document.getElementById('form-produto').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const payload = {
+        nome: document.getElementById('produto-nome').value,
+        descricao: document.getElementById('produto-descricao').value || null,
+        preco: parseFloat(document.getElementById('produto-preco').value),
+        estoque: parseInt(document.getElementById('produto-estoque').value, 10)
+    };
+    const id = document.getElementById('produto-id').value;
+    try {
+        if (id) await API.updateProduto(id, payload);
+        else await API.createProduto(payload);
+        closeModal('modal-produto');
+        loadData('produtos');
     } catch (err) { alert(err.message); }
 });
 

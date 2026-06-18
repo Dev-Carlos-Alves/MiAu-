@@ -64,6 +64,11 @@ const API = {
     updateServico: (id, servico) => apiFetch(`/api/servicos/${id}`, { method: 'PUT', body: JSON.stringify(servico) }),
     deleteServico: (id) => apiFetch(`/api/servicos/${id}`, { method: 'DELETE' }),
 
+    getProdutos: () => apiFetch('/api/produtos'),
+    createProduto: (produto) => apiFetch('/api/produtos', { method: 'POST', body: JSON.stringify(produto) }),
+    updateProduto: (id, produto) => apiFetch(`/api/produtos/${id}`, { method: 'PUT', body: JSON.stringify(produto) }),
+    deleteProduto: (id) => apiFetch(`/api/produtos/${id}`, { method: 'DELETE' }),
+
     getAgendamentos: () => apiFetch('/api/agendamentos'),
     createAgendamento: (agendamento) => apiFetch('/api/agendamentos', { method: 'POST', body: JSON.stringify(agendamento) }),
     updateAgendamento: (id, agendamento) => apiFetch(`/api/agendamentos/${id}`, { method: 'PUT', body: JSON.stringify(agendamento) }),

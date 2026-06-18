@@ -163,6 +163,61 @@ def delete_servico(id: int, db: pymysql.connections.Connection = Depends(get_db)
     cursor.execute("DELETE FROM servicos WHERE id=%s", (id,))
     return {"message": "Serviço deletado"}
 
+# --- PRODUTOS ---
+@router.get(
+    "/produtos",
+    response_model=List[schemas.Produto],
+    tags=["Produtos"],
+    summary="Listar produtos",
+    description="Retorna catálogo da tabela `produtos` (ração, brinquedos, medicamentos).",
+)
+def read_produtos(db: pymysql.connections.Connection = Depends(get_db)):
+    cursor = db.cursor()
+    cursor.execute("SELECT * FROM produtos")
+    return cursor.fetchall()
+
+@router.post(
+    "/produtos",
+    response_model=schemas.Produto,
+    tags=["Produtos"],
+    summary="Cadastrar produto",
+    description="Insere novo produto com nome, descrição, preço e estoque.",
+)
+def create_produto(prod: schemas.ProdutoCreate, db: pymysql.connections.Connection = Depends(get_db)):
+    cursor = db.cursor()
+    cursor.execute(
+        "INSERT INTO produtos (nome, descricao, preco, estoque) VALUES (%s, %s, %s, %s)",
+        (prod.nome, prod.descricao, prod.preco, prod.estoque),
+    )
+    return {**prod.model_dump(), "id": cursor.lastrowid}
+
+@router.put(
+    "/produtos/{id}",
+    response_model=schemas.Produto,
+    tags=["Produtos"],
+    summary="Atualizar produto",
+    description="Atualiza produto existente por ID.",
+)
+def update_produto(id: int, prod: schemas.ProdutoCreate, db: pymysql.connections.Connection = Depends(get_db)):
+    cursor = db.cursor()
+    cursor.execute(
+        "UPDATE produtos SET nome=%s, descricao=%s, preco=%s, estoque=%s WHERE id=%s",
+        (prod.nome, prod.descricao, prod.preco, prod.estoque, id),
+    )
+    return {**prod.model_dump(), "id": id}
+
+@router.delete(
+    "/produtos/{id}",
+    response_model=schemas.MessageResponse,
+    tags=["Produtos"],
+    summary="Excluir produto",
+    description="Remove produto por ID.",
+)
+def delete_produto(id: int, db: pymysql.connections.Connection = Depends(get_db)):
+    cursor = db.cursor()
+    cursor.execute("DELETE FROM produtos WHERE id=%s", (id,))
+    return {"message": "Produto deletado"}
+
 # --- AGENDAMENTOS ---
 @router.get(
     "/agendamentos",

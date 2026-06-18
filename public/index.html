@@ -46,7 +46,7 @@
                     <li><a href="#" data-target="home" class="nav-link active"><i class="fas fa-home"></i> <span>Home</span></a></li>
                     <li><a href="#" data-target="tutores-pets" class="nav-link"><i class="fas fa-user-friends"></i> <span>Tutores & Pets</span></a></li>
                     <li><a href="#" data-target="servicos" class="nav-link"><i class="fas fa-concierge-bell"></i> <span>Serviços</span></a></li>
-
+                    <li><a href="#" data-target="produtos" class="nav-link"><i class="fas fa-box"></i> <span>Produtos</span></a></li>
                     <li><a href="#" data-target="agendamentos" class="nav-link"><i class="fas fa-calendar-alt"></i> <span>Agendamentos</span></a></li>
                 </ul>
             </nav>
@@ -143,7 +143,19 @@
                     </div>
                 </section>
 
-
+                <!-- Produtos Section -->
+                <section id="sec-produtos" class="content-section hidden">
+                    <div class="action-bar">
+                        <h2>Gestão de Produtos</h2>
+                        <button onclick="openCreateModal('modal-produto')">+ Novo Produto</button>
+                    </div>
+                    <div class="data-table-container">
+                        <table>
+                            <thead><tr><th>ID</th><th>Nome</th><th>Descrição</th><th>Preço</th><th>Estoque</th><th>Ações</th></tr></thead>
+                            <tbody id="tbody-produtos"></tbody>
+                        </table>
+                    </div>
+                </section>
 
                 <!-- Agendamentos Section -->
                 <section id="sec-agendamentos" class="content-section hidden">
@@ -279,7 +291,26 @@
         </div>
     </div>
 
-
+    <!-- Modal Produto -->
+    <div id="modal-produto" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-produto-title">Cadastrar Produto</h3>
+                <button type="button" class="btn-close" onclick="closeModal('modal-produto')"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="form-produto">
+                <input type="hidden" id="produto-id">
+                <div class="input-group"><label>Nome</label><input type="text" id="produto-nome" required></div>
+                <div class="input-group"><label>Descrição</label><input type="text" id="produto-descricao"></div>
+                <div class="input-group"><label>Preço</label><input type="number" step="0.01" id="produto-preco" required></div>
+                <div class="input-group"><label>Estoque</label><input type="number" min="0" step="1" id="produto-estoque" required></div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" onclick="closeModal('modal-produto')">Cancelar</button>
+                    <button type="submit" class="btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <!-- Modal Agendamento -->
     <div id="modal-agendamento" class="modal hidden">

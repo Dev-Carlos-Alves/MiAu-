@@ -16,6 +16,10 @@ OPENAPI_TAGS = [
         "description": "Catálogo de serviços e preços. Tabela: `servicos`.",
     },
     {
+        "name": "Produtos",
+        "description": "Produtos da loja (ração, brinquedos, medicamentos). Tabela: `produtos`.",
+    },
+    {
         "name": "Agendamentos",
         "description": "Agendamentos cruzando tutor, pet e serviço. Tabela: `agendamentos`.",
     },
@@ -47,6 +51,7 @@ Backend **FastAPI** integrado ao banco **MariaDB/MySQL** (`miau_db`).
 | `tutores` | `/api/tutores` |
 | `pets` | `/api/pets` |
 | `servicos` | `/api/servicos` |
+| `produtos` | `/api/produtos` |
 | `agendamentos` | `/api/agendamentos` |
 | `avisos` | `/api/avisos` |
 

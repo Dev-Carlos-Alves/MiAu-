@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "MiAu API REST",
-    "description": "\n## MiAu — API REST de Gestão Petshop\n\nBackend **FastAPI** integrado ao banco **MariaDB/MySQL** (`miau_db`).\n\n### Autenticação JWT\n\n1. `POST /auth/login` — envie `username` e `password` (form-urlencoded)\n2. Copie o `access_token` retornado\n3. Clique em **Authorize** e informe: `Bearer {token}`\n4. Rotas `/api/*` exigem token válido\n\n**Usuário padrão:** `ShardCadu` / `cadu123`\n\n### Tabelas do banco\n\n| Tabela | Endpoints |\n|--------|-----------|\n| `usuarios` | `/auth/login`, `/auth/register`, `/auth/me` |\n| `tutores` | `/api/tutores` |\n| `pets` | `/api/pets` |\n| `servicos` | `/api/servicos` |\n| `agendamentos` | `/api/agendamentos` |\n| `avisos` | `/api/avisos` |\n\nDocumentação completa: repositório → `docs/API-Swagger.md`\n",
+    "description": "\n## MiAu — API REST de Gestão Petshop\n\nBackend **FastAPI** integrado ao banco **MariaDB/MySQL** (`miau_db`).\n\n### Autenticação JWT\n\n1. `POST /auth/login` — envie `username` e `password` (form-urlencoded)\n2. Copie o `access_token` retornado\n3. Clique em **Authorize** e informe: `Bearer {token}`\n4. Rotas `/api/*` exigem token válido\n\n**Usuário padrão:** `ShardCadu` / `cadu123`\n\n### Tabelas do banco\n\n| Tabela | Endpoints |\n|--------|-----------|\n| `usuarios` | `/auth/login`, `/auth/register`, `/auth/me` |\n| `tutores` | `/api/tutores` |\n| `pets` | `/api/pets` |\n| `servicos` | `/api/servicos` |\n| `produtos` | `/api/produtos` |\n| `agendamentos` | `/api/agendamentos` |\n| `avisos` | `/api/avisos` |\n\nDocumentação completa: repositório → `docs/API-Swagger.md`\n",
     "version": "1.0.0",
     "contact": {
       "name": "Carlos Eduardo (Cadu)",
@@ -719,6 +719,186 @@
         }
       }
     },
+    "/api/produtos": {
+      "get": {
+        "tags": [
+          "Produtos"
+        ],
+        "summary": "Listar produtos",
+        "description": "Retorna catálogo da tabela `produtos` (ração, brinquedos, medicamentos).",
+        "operationId": "read_produtos_api_produtos_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/Produto"
+                  },
+                  "type": "array",
+                  "title": "Response Read Produtos Api Produtos Get"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Produtos"
+        ],
+        "summary": "Cadastrar produto",
+        "description": "Insere novo produto com nome, descrição, preço e estoque.",
+        "operationId": "create_produto_api_produtos_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProdutoCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Produto"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
+    },
+    "/api/produtos/{id}": {
+      "put": {
+        "tags": [
+          "Produtos"
+        ],
+        "summary": "Atualizar produto",
+        "description": "Atualiza produto existente por ID.",
+        "operationId": "update_produto_api_produtos__id__put",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProdutoCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Produto"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Produtos"
+        ],
+        "summary": "Excluir produto",
+        "description": "Remove produto por ID.",
+        "operationId": "delete_produto_api_produtos__id__delete",
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/agendamentos": {
       "get": {
         "tags": [
@@ -1380,6 +1560,103 @@
         ],
         "title": "PetCreate"
       },
+      "Produto": {
+        "properties": {
+          "nome": {
+            "type": "string",
+            "maxLength": 100,
+            "title": "Nome",
+            "description": "Nome do produto",
+            "example": "Ração Premium 15kg"
+          },
+          "descricao": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Descricao",
+            "description": "Descrição detalhada",
+            "example": "Ração super premium para cães adultos"
+          },
+          "preco": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Preco",
+            "description": "Preço em reais (DECIMAL no banco)",
+            "example": 189.9
+          },
+          "estoque": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Estoque",
+            "description": "Quantidade em estoque",
+            "example": 25
+          },
+          "id": {
+            "type": "integer",
+            "title": "Id",
+            "description": "ID gerado pelo banco (PK)",
+            "example": 1
+          }
+        },
+        "type": "object",
+        "required": [
+          "nome",
+          "preco",
+          "estoque",
+          "id"
+        ],
+        "title": "Produto"
+      },
+      "ProdutoCreate": {
+        "properties": {
+          "nome": {
+            "type": "string",
+            "maxLength": 100,
+            "title": "Nome",
+            "description": "Nome do produto",
+            "example": "Ração Premium 15kg"
+          },
+          "descricao": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Descricao",
+            "description": "Descrição detalhada",
+            "example": "Ração super premium para cães adultos"
+          },
+          "preco": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Preco",
+            "description": "Preço em reais (DECIMAL no banco)",
+            "example": 189.9
+          },
+          "estoque": {
+            "type": "integer",
+            "minimum": 0.0,
+            "title": "Estoque",
+            "description": "Quantidade em estoque",
+            "example": 25
+          }
+        },
+        "type": "object",
+        "required": [
+          "nome",
+          "preco",
+          "estoque"
+        ],
+        "title": "ProdutoCreate"
+      },
       "ProfileResponse": {
         "properties": {
           "username": {
@@ -1788,6 +2065,10 @@
     {
       "name": "Serviços",
       "description": "Catálogo de serviços e preços. Tabela: `servicos`."
+    },
+    {
+      "name": "Produtos",
+      "description": "Produtos da loja (ração, brinquedos, medicamentos). Tabela: `produtos`."
     },
     {
       "name": "Agendamentos",

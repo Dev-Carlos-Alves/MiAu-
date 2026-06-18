@@ -41,7 +41,17 @@ CREATE TABLE servicos (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- 5. AGENDAMENTOS (O núcleo do sistema)
+-- 5. PRODUTOS (Ração, brinquedos, medicamentos)
+CREATE TABLE produtos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    descricao TEXT,
+    preco DECIMAL(10,2) NOT NULL,
+    estoque INT NOT NULL DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 6. AGENDAMENTOS (O núcleo do sistema)
 CREATE TABLE agendamentos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     tutor_id INT NOT NULL,
@@ -55,7 +65,7 @@ CREATE TABLE agendamentos (
     CONSTRAINT fk_agend_servico FOREIGN KEY (servico_id) REFERENCES servicos(id) ON DELETE CASCADE
 );
 
--- 6. AVISOS (O Mural da Tela Inicial)
+-- 7. AVISOS (O Mural da Tela Inicial)
 CREATE TABLE avisos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     tipo ENUM('Urgente', 'Aviso', 'Lembrete') NOT NULL,

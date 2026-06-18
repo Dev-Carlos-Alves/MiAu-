@@ -55,7 +55,19 @@ def popular_banco_teste():
             servicos_data
         )
 
-        # 4. Inserir Agendamentos
+        # 4. Inserir Produtos
+        print("Inserindo Produtos...")
+        produtos_data = [
+            ('Ração Premium 15kg', 'Ração super premium para cães adultos de porte médio.', 189.90, 40),
+            ('Brinquedo Mordedor', 'Brinquedo de borracha resistente para cães.', 34.90, 60),
+            ('Antipulgas Spot', 'Medicamento antipulgas e carrapatos — uso tópico.', 79.50, 25),
+        ]
+        cursor.executemany(
+            "INSERT INTO produtos (nome, descricao, preco, estoque) VALUES (%s, %s, %s, %s)",
+            produtos_data
+        )
+
+        # 5. Inserir Agendamentos
         print("Inserindo Agendamentos...")
         agendamentos_data = [
             (1, 1, 2, '2026-06-15 10:00:00', 'Agendado'),
@@ -67,7 +79,7 @@ def popular_banco_teste():
             agendamentos_data
         )
 
-        # 5. Inserir Avisos
+        # 6. Inserir Avisos
         print("Inserindo Avisos (Mural)...")
         avisos_data = [
             ('Urgente', 'Falta de água programada para amanhã às 14h. Remarcar banhos.'),
