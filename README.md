@@ -3,123 +3,143 @@
 # 🐾 MiAu - Pet Shop & Bem-Estar
 
 ## 📌 Sobre o Projeto
-O **MiAu** é um Sistema de Gestão Fullstack moderno, desenvolvido para clínicas veterinárias e pet shops. Criado como projeto acadêmico da disciplina do professor Henning (Semestre 2026.1), ele permite o controle completo de clientes (tutores), pacientes (pets), catálogo de serviços e controle de agendamentos.
+O **MiAu** é um sistema de gestão para clínicas veterinárias e pet shops, desenvolvido como projeto acadêmico para a disciplina do professor Henning (Semestre 2026.1).
 
-## 🎯 Objetivos e Metas
-- **Gestão Centralizada**: Substituir planilhas e processos manuais por um fluxo digital unificado e extremamente rápido.
-- **Design Corporativo e Profissional**: Entregar uma experiência de usuário (UX/UI) refinada, baseada no rigoroso **Arco Design System**.
-- **Arquitetura Moderna**: Frontend **Next.js** consumindo uma **RESTful API NestJS**, com Swagger integrado na própria aplicação.
+O projeto atual está implementado como um backend em **FastAPI** com autenticação JWT e uma interface frontend estática em **HTML/CSS/JavaScript**, servida pelo mesmo servidor.
+
+## 🎯 Objetivos
+- Digitalizar e centralizar o controle de clientes, pets, serviços, produtos e agendamentos.
+- Oferecer uma API REST com documentação Swagger/OpenAPI.
+- Permitir execução local simples via Python e MariaDB/MySQL.
 
 ## 🛠️ Tecnologias Utilizadas
+- Python 3
+- FastAPI
+- Uvicorn
+- PyMySQL
+- Pydantic
+- python-jose
+- passlib[bcrypt]
+- python-dotenv
+- MariaDB / MySQL
+- HTML/CSS/JavaScript estático para frontend
 
-### Frontend (`apps/web`)
-- **Next.js 15** + **React 19** — App Router, rotas protegidas por JWT.
-- **swagger-ui-react** — Swagger UI embarcado em `/docs` dentro do dashboard.
-- **Arco Design System** — CSS customizado, FontAwesome, UI Avatars.
-
-### Backend (`apps/api`)
-- **NestJS 11** + **TypeORM** — API REST com validação (`class-validator`).
-- **@nestjs/swagger** — Geração automática do OpenAPI via decorators.
-- **`initSwagger(app)`** — Inicialização centralizada em `apps/api/src/swagger.ts`, chamada em `apps/api/src/main.ts`.
-- **MariaDB / MySQL** — Banco relacional `miau_db`.
-
-### Legado (preservado, não usado por padrão)
-- `backend/` — FastAPI + Pydantic (stack anterior).
-- `frontend/` — SPA vanilla HTML/CSS/JS (stack anterior).
-
-## 📦 Estrutura de Módulos (Features)
-- 👤 **Autenticação e Perfil**: Login JWT, gestão de perfil e avatar.
-- 🔔 **Sistema de Notificações**: Mural de avisos com badge numérico.
-- 🏠 **Home / Mural**: Painel de avisos do sistema.
-- 👥 **Tutores & Pets**: CRUD unificado com foto do tutor e accordion de pets.
-- 🏷️ **Serviços**: Catálogo comercial de banho, tosa, etc.
-- 📅 **Agendamentos**: Cruzamento de tutores, pets e serviços.
-- 📖 **API Docs**: Swagger UI integrado em `/docs` (sidebar "API Docs").
-
-## 🚀 Como Executar o Projeto Localmente
-
-### Estrutura do Projeto
-
+## 📁 Estrutura do Projeto
 ```
 MiAu/
-├── package.json          # Monorepo npm (workspaces: apps/api, apps/web)
-├── app.py                # Atalho → npm run dev
-├── apps/
-│   ├── api/              # NestJS — API REST + initSwagger(app)
-│   └── web/              # Next.js — UI + Swagger em /docs
-├── backend/              # FastAPI legado
-├── database/             # Schema SQL e scripts de setup
-├── deploy/               # Configuração de deploy (Vercel)
-│   ├── vercel.json       # Espelho de apps/web/vercel.json
-│   └── .env.example
-├── docs/                 # openapi.json, openapi.yaml, guias
-└── scripts/              # export-openapi.mjs
+├── app.py                 # Entrypoint local: inicia o FastAPI + frontend estático
+├── backend/               # Backend FastAPI
+│   ├── app_api.py         # App FastAPI apenas API
+│   ├── auth.py            # JWT e autenticação
+│   ├── database.py        # Conexão PyMySQL e env vars
+│   ├── main.py            # Serve API + frontend estático
+│   ├── openapi_config.py  # Enriquecimento do schema OpenAPI
+│   ├── openapi_tags.py    # Tags e metadados do OpenAPI
+│   ├── requirements.txt   # Dependências Python
+│   ├── routers/           # Rotas de autenticação e CRUD
+│   └── schemas.py         # Modelos Pydantic
+├── backend/routers/
+│   ├── api_routes.py      # CRUD de tutores, pets, serviços, produtos, agendamentos e avisos
+│   └── auth_routes.py     # Login, registro e perfil
+├── database/              # Schema SQL e scripts de setup
+├── docs/                  # Documentação OpenAPI e coleções Postman
+├── frontend/              # Interface web estática servida pelo backend
+├── public/                # Cópia de arquivos estáticos do frontend
+└── scripts/               # Scripts auxiliares (export OpenAPI)
 ```
 
-> **Deploy Vercel:** configure **Root Directory** = `apps/web`. O `deploy/vercel.json` espelha a config de produção (Next.js + handler NestJS em `api/nest.ts`).
+## ✅ Funcionalidades Principais
+- Autenticação JWT com login e perfil
+- CRUD de **tutores**
+- CRUD de **pets**
+- CRUD de **serviços**
+- CRUD de **produtos**
+- CRUD de **agendamentos**
+- CRUD de **avisos**
+- API documentada em **Swagger**
+- Frontend estático servido pelo mesmo servidor
 
-### 1. Pré-requisitos
-- **Node.js 20+** e **npm**.
-- Servidor **MariaDB/MySQL** local (porta 3306).
-- **Python 3** (opcional — só para `database/setup_db.py` e atalho `app.py`).
+## 🚀 Como Executar Localmente
 
-### 2. Configurar o Banco de Dados
+### 1. Instalar dependências Python
+```bash
+python -m pip install -r backend/requirements.txt
+```
+
+### 2. Inicializar o banco de dados
 ```bash
 python database/setup_db.py
 ```
-> **Credenciais Padrão:** Login: `ShardCadu` | Senha: `cadu123`
 
-### 3. Variáveis de Ambiente
-Copie `deploy/.env.example` para `.env` na raiz:
-```bash
-cp deploy/.env.example .env
-```
-
-### 4. Instalar e Rodar
-```bash
-npm install
-npm run dev
-```
-Ou use o atalho Python:
+### 3. Rodar a aplicação
 ```bash
 python app.py
 ```
 
-Isso inicia:
-- **NestJS** em `http://127.0.0.1:3001` (API + `/openapi.json` + `/api-docs`)
-- **Next.js** em `http://127.0.0.1:3000` (app completa)
+### 4. Acessar o sistema
+- App: http://127.0.0.1:8000
+- Swagger / API Docs: http://127.0.0.1:8000/docs
 
-### 5. Acessar o Sistema
-| Recurso | URL |
-|---------|-----|
-| App | http://127.0.0.1:3000 |
-| Swagger integrado | http://127.0.0.1:3000/docs |
-| OpenAPI JSON | http://127.0.0.1:3000/openapi.json |
-| Swagger debug (NestJS) | http://127.0.0.1:3001/api-docs |
+## 🔧 Configuração de Ambiente
+O projeto usa variáveis de ambiente com valores default, então é possível rodar localmente sem arquivo `.env`.
 
-### 6. Documentação da API (Swagger)
+Variáveis suportadas:
+- `DB_HOST` (default: `localhost`)
+- `DB_USER` (default: `root`)
+- `DB_PASSWORD` (default: `root`)
+- `DB_NAME` (default: `miau_db`)
+- `DB_PORT` (default: `3306`)
+- `JWT_SECRET_KEY` (default: `aumiau_super_secret_key_change_in_production`)
+- `JWT_EXPIRE_MINUTES` (default: `120`)
 
-O OpenAPI é gerado pelo NestJS via `initSwagger(app)`:
+> Em produção, defina um `JWT_SECRET_KEY` seguro e não use credenciais padrão.
 
-```typescript
-// apps/api/src/main.ts
-initSwagger(app);
+## 🗄️ Banco de Dados
+O script `database/setup_db.py` cria o banco `miau_db` e as tabelas:
+- `usuarios`
+- `tutores`
+- `pets`
+- `servicos`
+- `produtos`
+- `agendamentos`
+- `avisos`
+
+Também insere o usuário padrão:
+- `username`: `ShardCadu`
+- `email`: `cadu.sport@miau.com`
+- `senha`: `cadu123`
+
+## 📌 API e Swagger
+A API tem rotas de autenticação em `/auth` e rotas CRUD sob `/api`.
+
+Principais endpoints:
+- `POST /auth/login`
+- `POST /auth/register`
+- `GET /auth/me`
+- `PUT /auth/me`
+- `GET/POST/PUT/DELETE /api/tutores`
+- `GET/POST/PUT/DELETE /api/pets`
+- `GET/POST/PUT/DELETE /api/servicos`
+- `GET/POST/PUT/DELETE /api/produtos`
+- `GET/POST/PUT/DELETE /api/agendamentos`
+- `GET/POST/DELETE /api/avisos`
+
+Swagger interativo:
+- http://127.0.0.1:8000/docs
+
+Gerar documentação OpenAPI estática:
+```bash
+python scripts/export_openapi.py
 ```
 
-A UI é renderizada pelo Next.js em `/docs` com `swagger-ui-react`, consumindo `/openapi.json` (proxy para a API NestJS).
+## 📚 Documentação Complementar
+- `docs/API-Swagger.md`
+- `docs/openapi.json`
+- `docs/openapi.yaml`
+- `docs/postman/MiAu-Login.postman_collection.json`
+- `docs/postman/MiAu.postman_environment.json`
 
-- **Documentação Markdown:** [`docs/API-Swagger.md`](docs/API-Swagger.md)
-- **Exportar spec estático:** `npm run export:openapi` (requer API rodando na porta 3001)
-- **Importar no Swagger Hub:** [`docs/openapi.yaml`](docs/openapi.yaml)
-
-**Autenticação no Swagger:**
-1. Faça login no app (`ShardCadu` / `cadu123`) — o token é injetado automaticamente nas requisições.
-2. Ou use **Authorize → OAuth2PasswordBearer** com as mesmas credenciais.
-3. Ou cole o token manualmente em **Authorize → BearerJWT**.
-
----
-## 👨‍💻 Contribuidores do MiAu
-Desenvolvido, arquitetado e testado por: 
+## 👨‍💻 Contribuidores
 - **Bruno Souza**
 - **Carlos Eduardo Alves**
 - **Geraldo de Albuquerque**
