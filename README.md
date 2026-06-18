@@ -3,14 +3,26 @@
 # 🐾 MiAu - Pet Shop & Bem-Estar
 
 ## 📌 Sobre o Projeto
-O **MiAu** é um Sistema de Gestão Fullstack moderno, desenvolvido para clínicas veterinárias e pet shops. Criado como projeto acadêmico da disciplina do professor Henning (Semestre 2026.1), ele permite o controle completo de clientes (tutores), pacientes (pets), catálogo de serviços e controle de agendamentos.
+O **MiAu** é um sistema de gestão para clínicas veterinárias e pet shops, desenvolvido como projeto acadêmico para a disciplina do professor Henning (Semestre 2026.1).
 
-## 🎯 Objetivos e Metas
-- **Gestão Centralizada**: Substituir planilhas e processos manuais por um fluxo digital unificado e extremamente rápido.
-- **Design Corporativo e Profissional**: Entregar uma experiência de usuário (UX/UI) refinada, baseada no rigoroso **Arco Design System**.
-- **Arquitetura Moderna**: Frontend **Next.js** consumindo uma **RESTful API NestJS**, com Swagger integrado na própria aplicação.
+O projeto atual está implementado como um backend em **FastAPI** com autenticação JWT e uma interface frontend estática em **HTML/CSS/JavaScript**, servida pelo mesmo servidor.
+
+## 🎯 Objetivos
+- Digitalizar e centralizar o controle de clientes, pets, serviços, produtos e agendamentos.
+- Oferecer uma API REST com documentação Swagger/OpenAPI.
+- Permitir execução local simples via Python e MariaDB/MySQL.
 
 ## 🛠️ Tecnologias Utilizadas
+- Python 3
+- FastAPI
+- Uvicorn
+- PyMySQL
+- Pydantic
+- python-jose
+- passlib[bcrypt]
+- python-dotenv
+- MariaDB / MySQL
+- HTML/CSS/JavaScript estático para frontend
 
 ### Frontend (`frontend/`)
 - **HTML5, CSS3 e JavaScript Vanilla** — Single Page Application (SPA) levíssima e rápida.
@@ -63,13 +75,14 @@ DB_USER=root
 DB_PASSWORD=root
 DB_NAME=miau_db
 DB_PORT=3306
+JWT_SECRET_KEY=aumiau_super_secret_key_change_in_production
+JWT_EXPIRE_MINUTES=120
 ```
 
 Para inicializar as tabelas e o usuário administrador padrão, rode:
 ```bash
 python database/setup_db.py
 ```
-> **Credenciais Padrão:** Login: `ShardCadu` | Senha: `cadu123`
 
 ### 3. Instalar Dependências
 Recomenda-se o uso de um ambiente virtual:
@@ -93,8 +106,6 @@ python app.py
 | Documentação da API (Swagger) | http://127.0.0.1:8000/docs |
 | OpenAPI JSON | http://127.0.0.1:8000/openapi.json |
 
-### 6. Documentação da API (Swagger)
-
 A documentação interativa Swagger é gerada automaticamente pelo FastAPI com base nas rotas e esquemas Pydantic configurados na pasta `backend/`.
 
 **Autenticação no Swagger:**
@@ -103,6 +114,22 @@ A documentação interativa Swagger é gerada automaticamente pelo FastAPI com b
 3. O token JWT será injetado automaticamente em todas as requisições subsequentes testadas pela interface.
 
 ---
+## 🗄️ Banco de Dados
+O script `database/setup_db.py` cria o banco `miau_db` e as tabelas:
+- `usuarios`, `tutores`, `pets`, `servicos`, `produtos`, `agendamentos`, `avisos`
+
+Também insere o usuário padrão:
+- `username`: `ShardCadu`
+- `email`: `cadu.sport@miau.com`
+- `senha`: `cadu123`
+
+## 📌 API e Swagger
+A API tem rotas de autenticação em `/auth` e rotas CRUD sob `/api`.
+Gerar documentação OpenAPI estática:
+```bash
+python scripts/export_openapi.py
+```
+
 ## 👨‍💻 Contribuidores do MiAu
 Desenvolvido, arquitetado e testado por: 
 - **Bruno Souza**

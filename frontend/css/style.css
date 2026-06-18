@@ -188,7 +188,7 @@ button.btn-primary:active {
 }
 
 .sidebar-logo img {
-    width: min(210px, 88%);
+    width: min(240px, 90%);
     max-width: 100%;
     max-height: none;
     height: auto;
@@ -201,7 +201,7 @@ button.btn-primary:active {
 }
 
 .sidebar.collapsed .sidebar-logo img {
-    width: 56px;
+    width: 64px;
     max-width: 100%;
     max-height: none;
     transform: scale(1.5);
@@ -967,7 +967,7 @@ td button {
     }
 
     .sidebar-logo img {
-        width: min(180px, 85%);
+        width: min(220px, 88%);
     }
 
     /* Área de Conteúdo */
