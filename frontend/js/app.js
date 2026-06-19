@@ -148,6 +148,30 @@ document.getElementById('btn-logout').addEventListener('click', (e) => {
     checkAuth();
 });
 
+document.getElementById('form-esqueceu-senha').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('esqueceu-senha-email').value;
+    alert('Instruções para redefinição de senha foram enviadas para o email: ' + email);
+    closeModal('modal-esqueceu-senha');
+});
+
+document.getElementById('form-novo-usuario').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const payload = {
+        username: document.getElementById('novo-usuario-nome').value.trim(),
+        email: document.getElementById('novo-usuario-email').value.trim(),
+        password: document.getElementById('novo-usuario-senha').value,
+    };
+    try {
+        const data = await API.register(payload);
+        localStorage.setItem('aumiau_token', data.access_token);
+        closeModal('modal-novo-usuario');
+        checkAuth();
+    } catch (err) {
+        alert(err.message);
+    }
+});
+
 document.querySelectorAll('.nav-link').forEach(navLink => {
     navLink.addEventListener('click', (e) => {
         e.preventDefault();

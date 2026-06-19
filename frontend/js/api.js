@@ -49,6 +49,11 @@ const API = {
         return data;
     },
 
+    register: (user) => apiFetch('/auth/register', {
+        method: 'POST',
+        body: JSON.stringify(user),
+    }),
+
     getTutores: () => apiFetch('/api/tutores'),
     createTutor: (tutor) => apiFetch('/api/tutores', { method: 'POST', body: JSON.stringify(tutor) }),
     updateTutor: (id, tutor) => apiFetch(`/api/tutores/${id}`, { method: 'PUT', body: JSON.stringify(tutor) }),

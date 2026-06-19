@@ -5,10 +5,6 @@ OPENAPI_SERVERS = [
         "url": "http://127.0.0.1:8000",
         "description": "Local (python app.py)",
     },
-    {
-        "url": "https://mi-au.vercel.app",
-        "description": "Producao Vercel",
-    },
 ]
 
 OPENAPI_EXTERNAL_DOCS = {
